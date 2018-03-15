@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GetUsersGitService } from '../services/get-users-git.service';
 
 @Component({
   selector: 'hotv-header',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public resultListUsers: object;
+
+  constructor(private usersService: GetUsersGitService) { }
 
   ngOnInit() {
+  }
+
+  public getUserInput(userName: string) {
+    this.usersService.getUsers(userName)
+      .subscribe((listUsers) => {
+        this.resultListUsers = listUsers
+        console.log(this.resultListUsers);
+      });
   }
 
 }
